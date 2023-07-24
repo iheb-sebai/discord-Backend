@@ -19,7 +19,6 @@ const updateChatHistory = async (
     const io = serverStore.getSocketServerInstance();
 
     if (toSpecifiedSocketId) {
-      // initial update of chat history
       return io.to(toSpecifiedSocketId).emit("direct-chat-history", {
         messages: conversation.messages,
         participants: conversation.participants,

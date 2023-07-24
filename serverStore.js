@@ -48,7 +48,7 @@ const getOnlineUsers = () => {
   return onlineUsers;
 };
 
-// rooms
+
 const addNewActiveRoom = (userId, socketId) => {
   const newActiveRoom = {
     roomCreator: {
