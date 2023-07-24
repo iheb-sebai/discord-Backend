@@ -27,7 +27,6 @@ router.post(
   authControllers.controllers.postLogin
 );
 
-// test route to verify if our middleware is working
 router.get("/test", auth, (req, res) => {
   res.send("request passed");
 });

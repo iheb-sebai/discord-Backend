@@ -26,8 +26,7 @@ const updateChatHistory = async (
       });
     }
 
-    // check if users of this conversation are online
-    // if yes emit to them update of messages
+  
 
     conversation.participants.forEach((userId) => {
       const activeConnections = serverStore.getActiveConnections(

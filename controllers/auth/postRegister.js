@@ -7,7 +7,6 @@ const postRegister = async (req, res) => {
     const { username, mail, password } = req.body;
 
     console.log("user register request came");
-    // check if user exists
     const userExists = await User.exists({ mail: mail.toLowerCase() });
 
     console.log(userExists);
@@ -16,17 +15,14 @@ const postRegister = async (req, res) => {
       return res.status(409).send("E-mail already in use.");
     }
 
-    // encrypt password
     const encryptedPassword = await bcrypt.hash(password, 10);
 
-    // create user document and save in database
     const user = await User.create({
       username,
       mail: mail.toLowerCase(),
       password: encryptedPassword,
     });
 
-    // create JWT token
     const token = jwt.sign(
       {
         userId: user._id,

@@ -7,8 +7,8 @@ const postInvite = async (req, res) => {
 
   const { userId, mail } = req.user;
 
-  // check if friend that we would like to invite is not user
 
+  
   if (mail.toLowerCase() === targetMailAddress.toLowerCase()) {
     return res
       .status(409)
@@ -27,7 +27,7 @@ const postInvite = async (req, res) => {
       );
   }
 
-  // check if invitation has been already sent
+
   const invitationAlreadyReceived = await FriendInvitation.findOne({
     senderId: userId,
     receiverId: targetUser._id,
@@ -37,7 +37,7 @@ const postInvite = async (req, res) => {
     return res.status(409).send("Invitation has been already sent");
   }
 
-  // check if the user whuch we would like to invite is already our friend
+
   const usersAlreadyFriends = targetUser.friends.find(
     (friendId) => friendId.toString() === userId.toString()
   );
@@ -48,15 +48,14 @@ const postInvite = async (req, res) => {
       .send("Friend already added. Please check friends list");
   }
 
-  // create new invitation in database
+
   const newInvitation = await FriendInvitation.create({
     senderId: userId,
     receiverId: targetUser._id,
   });
 
-  // if invtiation has been successfully created we would like to update friends invitations if other user is online
 
-  // send pending invitations update to specific user
+  
   friendsUpdates.updateFriendsPendingInvitations(targetUser._id.toString());
 
   return res.status(201).send("Invitation has been sent");

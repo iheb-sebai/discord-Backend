@@ -14,7 +14,6 @@ const postAccept = async (req, res) => {
  
     const { senderId, receiverId } = invitation;
 
-    // add friends to both users
     const senderUser = await User.findById(senderId);
     senderUser.friends = [...senderUser.friends, receiverId];
 
@@ -24,14 +23,14 @@ const postAccept = async (req, res) => {
     await senderUser.save();
     await receiverUser.save();
 
-    // delete invitation
+
     await FriendInvitation.findByIdAndDelete(id);
 
-    // update list of the friends if the users are online
+
     friendsUpdates.updateFriends(senderId.toString());
     friendsUpdates.updateFriends(receiverId.toString());
 
-    // update list of friends pending invitations
+
     friendsUpdates.updateFriendsPendingInvitations(receiverId.toString());
 
     return res.status(200).send("Friend successfuly added");
