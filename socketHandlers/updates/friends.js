@@ -24,7 +24,7 @@ const updateFriendsPendingInvitations = async (userId) => {
 
 const updateFriends = async (userId) => {
   try {
-    // find active connections of specific id (online users)
+   
     const receiverList = serverStore.getActiveConnections(userId);
 
     if (receiverList.length > 0) {
@@ -42,7 +42,7 @@ const updateFriends = async (userId) => {
           };
         });
 
-        // get io server instance
+        
         const io = serverStore.getSocketServerInstance();
 
         receiverList.forEach((receiverSocketId) => {
